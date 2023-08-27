@@ -2,7 +2,7 @@
 
 This repository contains the scripts and document for my International
 Baccalaureate Extended Essay in Computer Science (which I took at Higher level).
-This essay was submitted during the May 2023 examination session and I received
+[This essay](essay.pdf) was submitted during the May 2023 examination session and I received
 a grade A for it.
 
 In summary, I combined the concepts of a Conditional GAN, a Wasserstein GAN with
@@ -53,7 +53,7 @@ C_{\text{loss}} = \underbrace{C(G(z,y),y) - C(x,y)}_{\text{Wasserstein distance 
 \underbrace{\lambda(\| \nabla C(\tilde x, y) \|_2 -1)^2}_{\text{Gradient penalty term}}
 ```
 
-The ‘Wasserstein distance estimate’ remains the same from the original WGAN paper \cite{wgan},
+The ‘Wasserstein distance estimate’ remains the same from the original WGAN paper,
 however the generator $G(z,y)$ and critic $C(x,y)$, also take in the labels $y$, since the GAN
 is conditional. The next element term is the gradient penalty, which uses the norm of the
 gradients of the critic’s weights, when inputting an interpolation of a real and generated image.
@@ -72,6 +72,9 @@ is significantly higher at lower numbers of training samples, than at higher num
 11,280 and 22,560 FID drops by 20.1 FID points).
 
 ### Qualitative Data
+It can be noticed that the GAN specifically performed poorly at generating
+certain characters when the dataset was reduced to 10% of the original size, namely ‘B’. ‘J’,
+and ‘M’, while instances of ‘1’ do not visually vary as much between the training set sizes.
 #### Full 100% Training Set
 <div align="center"><img src="imgs/112800.png" title="" alt="FID plot" data-align="center" width="70%"></div>
 
