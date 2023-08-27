@@ -16,7 +16,7 @@ Distance (FID score).
 This model was implemented using the Pytorch framework and can be found in
 `src/models.py`. The model architecture is illustrated in the diagram below.  
 
-<img src="imgs/architecture.png" title="" alt="GAN architecture" data-align="center">
+<p align="center"><img src="imgs/architecture.png" title="" alt="GAN architecture" data-align="center" width="70%"></p>
 
 
 ## Training and Evaluation Procedure
@@ -43,13 +43,16 @@ python Pytorch script can be found at `src/train.py`.
 - $\lambda = 10$ gradient penalty coefficient 
 - $n_{\text{critic}}$ ratio of critic to generator training iterations
 - $\alpha = 1e-4$ learning rate of optimiser
-- $\beta_1 = 0.0$ $\beta_2 = 0.9$ Adam optimiser parameters
+- $\beta_1 = 0.0$, $\beta_2 = 0.9$ Adam optimiser parameters
 
-<img src="imgs/training.png" title="" alt="GAN training" data-align="center">
+<p align="center"><img src="imgs/training.png" title="" alt="GAN training" data-align="center" width="70%"></p>
 
 The following loss function was constructed by combining the techniques from each of the papers.
-$C_{\text{loss}} = \underbrace{C(G(z,y),y) - C(x,y)}_{\text{Wasserstein distance estimate}} +
-\underbrace{\lambda(\| \nabla C(\tilde x, y) \|_2 -1)^2}_{\text{Gradient penalty term}}$
+```math
+C_{\text{loss}} = \underbrace{C(G(z,y),y) - C(x,y)}_{\text{Wasserstein distance estimate}} +
+\underbrace{\lambda(\| \nabla C(\tilde x, y) \|_2 -1)^2}_{\text{Gradient penalty term}}
+```
+
 The ‘Wasserstein distance estimate’ remains the same from the original WGAN paper \cite{wgan},
 however the generator $G(z,y)$ and critic $C(x,y)$, also take in the labels $y$, since the GAN
 is conditional. The next element term is the gradient penalty, which uses the norm of the
@@ -59,21 +62,9 @@ image $\tilde x = \epsilon x + (1-\epsilon)\hat x$, where $x$ and $\hat x$ are r
 
 ## Results
 ### Quantitative Data
-| % of Total | Samples |  FID Score  | $\Delta$ FID |
-|:----------:|:-------:|:-----------:|:------------:|
-|         10 |   11280 |  63.9696288 |              |
-|         20 |   22560 | 43.81612586 |      20.1535 |
-|         30 |   33840 | 39.08653845 |     4.729587 |
-|         40 |   45120 | 37.73255476 |     1.353984 |
-|         50 |   56400 | 35.50103584 |     2.231519 |
-|         60 |   67680 | 32.09195388 |     3.409082 |
-|         70 |   78960 | 28.34171738 |     3.750237 |
-|         80 |   90240 | 31.41788896 |     3.076172 |
-|         90 |  101520 | 30.47313068 |     2.891379 |
-|        100 |  112800 | 27.58175179 |     2.891379 |
+<div align="center"><table><thead><tr><th>% of Total</th><th>Samples</th><th>FID Score</th><th>$\Delta$ FID</th></tr></thead><tbody><tr><td>10</td><td>11280</td><td>63.9696288</td><td></td></tr><tr><td>20</td><td>22560</td><td>43.81612586</td><td>20.1535</td></tr><tr><td>30</td><td>33840</td><td>39.08653845</td><td>4.729587</td></tr><tr><td>40</td><td>45120</td><td>37.73255476</td><td>1.353984</td></tr><tr><td>50</td><td>56400</td><td>35.50103584</td><td>2.231519</td></tr><tr><td>60</td><td>67680</td><td>32.09195388</td><td>3.409082</td></tr><tr><td>70</td><td>78960</td><td>28.34171738</td><td>3.750237</td></tr><tr><td>80</td><td>90240</td><td>31.41788896</td><td>3.076172</td></tr><tr><td>90</td><td>101520</td><td>30.47313068</td><td>2.891379</td></tr><tr><td>100</td><td>112800</td><td>27.58175179</td><td>2.891379</td></tr></tbody></table></div>
 
-
-<img src="imgs/plot.png" title="" alt="FID plot" data-align="center">
+<div align="center"><img src="imgs/plot.png" title="" alt="FID plot" data-align="center" width="70%"></div>
 
 As is visible in the graph 1, the FID score clearly decreases as the number of training samples
 increases (indicating increased fidelity). It is also important to notice that the drop in FID
@@ -81,11 +72,14 @@ is significantly higher at lower numbers of training samples, than at higher num
 11,280 and 22,560 FID drops by 20.1 FID points).
 
 ### Qualitative Data
-### Full 100% Training Set
-<img src="imgs/112800.png" title="" alt="FID plot" data-align="center">
+#### Full 100% Training Set
+<div align="center"><img src="imgs/112800.png" title="" alt="FID plot" data-align="center" width="70%"></div>
 
-### Reduced 10% Training Set
-<img src="imgs/11280.png" title="" alt="FID plot" data-align="center">
+#### Reduced 10% Training Set
+<div align="center"><img src="imgs/11280.png" title="" alt="FID plot" data-align="center" width="70%"></div>
 
 ## References
-The references can be found in the `references.bib` file.
+The three repositories I took inpsiration from are listed below and the full list of references can be found in the `references.bib` file. 
+- https://github.com/Yangyangii/GAN-Tutorial
+- https://github.com/aladdinpersson/Machine-Learning-Collection
+- https://github.com/igul222/improved_wgan_training
